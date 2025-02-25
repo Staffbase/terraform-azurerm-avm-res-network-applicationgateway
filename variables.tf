@@ -634,8 +634,8 @@ variable "ssl_profile" {
   type = map(object({
     name                                 = string
     trusted_client_certificate_names     = optional(list(string))
-    verify_client_cert_issuer_dn         = optional(list(bool))
-    verify_client_certificate_revocation = optional(list(string))
+    verify_client_cert_issuer_dn         = optional(bool)
+    verify_client_certificate_revocation = optional(string)
     ssl_policy = optional(object({
       cipher_suites        = optional(list(string))
       disabled_protocols   = optional(list(string))
