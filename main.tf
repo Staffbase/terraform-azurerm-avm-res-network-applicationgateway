@@ -337,7 +337,8 @@ resource "azurerm_application_gateway" "this" {
     for_each = var.ssl_profile == null ? {} : var.ssl_profile
 
     content {
-      name = ssl_profile.value.name
+      name                             = ssl_profile.value.name
+      trusted_client_certificate_names = ssl_profile.value.trusted_client_certificate_names == null ? [] : ssl_profile.value.trusted_client_certificate_names
 
       dynamic "ssl_policy" {
         for_each = ssl_profile.value.ssl_policy == null ? [] : [ssl_profile.value.ssl_policy]
@@ -350,7 +351,6 @@ resource "azurerm_application_gateway" "this" {
           policy_type          = ssl_policy.value.policy_type
         }
       }
-      trusted_client_certificate_names = ssl_profile.value.trusted_client_certificate_names == null ? [] : [ssl_profile.value.trusted_client_certificate_names]
     }
   }
   dynamic "timeouts" {
